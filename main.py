@@ -6,7 +6,9 @@
 
 
 import requests
-
+# import xml.etree.ElementTree as ET
+# tree = ET.parse("http://ergast.com/api/f1/2021/21/qualifying")
+# root = tree.getroot()
 url = "http://ergast.com/api/f1/2021/21/qualifying"
 
 payload={}
@@ -14,5 +16,19 @@ headers = {}
 
 response = requests.request("GET", url, headers=headers, data=payload)
 
-print(response.text)
-
+# def parse_request_driver_qualifying():
+#     url = "http://ergast.com/api/f1/2021/21/qualifying"
+#     payload={}
+#     headers = {}
+#     response = requests.request("GET", url, headers=headers, data=payload)
+#     for data in response:
+#         new_recipie = Recipie(
+#             recipe["name"],
+#             recipe["ingredients"],
+#             recipe["calories"],
+#             recipe["protein"],
+#             recipe["difficulty"],
+#             recipe["link"],
+#             recipe["time"]
+#         )
+#         ALL_LIST.append(new_recipie)
