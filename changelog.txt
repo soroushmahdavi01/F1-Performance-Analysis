@@ -1,0 +1,18 @@
+This is like a passion project, I love F1 so I wanted to see how teams fair over the years anmd if the sport is getting faster and if the teams are getting faster.
+In 2021 we saw the start of the finances limit but not the new regulations, so teams in 2021 saw a diffrence in 2020, 2022 new specs were added which made races tighter
+This also saw the first fall of the dominant mercades who destryoed the last 7 years.
+
+TODO
+
+I need to be able to read the CSV files
+I need to be able to use the RACEID numbers from races.csv to update the ids to names
+I need to be able to extract all data from teams regardless of drivers
+I need to be able to take that data and caluclate the pace, then COMAPRE to a previous or future year
+2020 saw diffrent races? The calendar is not always the same. 
+I would need a benchmark race, a race that all the teams share in all years, 2-3 would be good. 
+
+STARTS FROM 2016
+Focus on Teams and performance diffrences betweent 2-3 races
+can change years
+will account for the average pace of BOTH drivers.
+can seperate to indivudal drivers (i.e Lando and Riccardo in 2021 vs 2022) Lando faster then riccard alot of the times :/ (except monza 2021 :D) 
