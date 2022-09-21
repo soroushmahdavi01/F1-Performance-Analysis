@@ -4,31 +4,10 @@
 #https://documenter.getpostman.com/view/11586746/SztEa7bL#46c7fbee-e90f-409f-b2ff-d8b77e85e5f6
 #https://ergast.com/mrd/
 
+import csv
+with open('data/qualifying.csv', 'r') as qualifying_file:
+    qualifying_reader = csv.DictReader(qualifying_file)
+    for line in qualifying_reader:
+        print(line['driverId'],line['q3'])
 
-import requests
-# import xml.etree.ElementTree as ET
-# tree = ET.parse("http://ergast.com/api/f1/2021/21/qualifying")
-# root = tree.getroot()
-url = "http://ergast.com/api/f1/2021/21/qualifying"
 
-payload={}
-headers = {}
-
-response = requests.request("GET", url, headers=headers, data=payload)
-
-# def parse_request_driver_qualifying():
-#     url = "http://ergast.com/api/f1/2021/21/qualifying"
-#     payload={}
-#     headers = {}
-#     response = requests.request("GET", url, headers=headers, data=payload)
-#     for data in response:
-#         new_recipie = Recipie(
-#             recipe["name"],
-#             recipe["ingredients"],
-#             recipe["calories"],
-#             recipe["protein"],
-#             recipe["difficulty"],
-#             recipe["link"],
-#             recipe["time"]
-#         )
-#         ALL_LIST.append(new_recipie)
