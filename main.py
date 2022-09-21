@@ -5,9 +5,23 @@
 #https://ergast.com/mrd/
 
 import csv
-with open('data/qualifying.csv', 'r') as qualifying_file:
-    qualifying_reader = csv.DictReader(qualifying_file)
-    for line in qualifying_reader:
-        print(line['driverId'],line['q3'])
+# x = "948"
+driver_list = {}
+race_list = {}
+def parse_qualifying_times():
+    with open('data/drivers.csv','r', encoding="utf8") as drivers_file:
+        drivers_reader = csv.DictReader(drivers_file)
+        for line in drivers_reader:
+            driver_list[line['driverId']]=line['forename'] + " " + line['surname']
+    with open('data/races.csv','r', encoding="utf8") as races_file:
+        races_reader = csv.DictReader(races_file)
+        for line in races_reader:
+            race_list[line['raceId']]=line['year'] + " " + line["name"]
+    with open('data/qualifying.csv', 'r') as qualifying_file:
+        qualifying_reader = csv.DictReader(qualifying_file)
+        for line in qualifying_reader:
+            # if line["raceId"] >= x:
+                print(race_list[line['raceId']],driver_list[line['driverId']],line['q1'])
+
 
 
