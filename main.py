@@ -8,20 +8,35 @@ import csv
 # x = "948"
 driver_list = {}
 race_list = {}
+constructors_list = {}
+qualifying_list = []
 def parse_qualifying_times():
     with open('data/drivers.csv','r', encoding="utf8") as drivers_file:
         drivers_reader = csv.DictReader(drivers_file)
         for line in drivers_reader:
             driver_list[line['driverId']]=line['forename'] + " " + line['surname']
+    with open('data/constructors.csv', 'r', encoding="utf8") as constructors_file:
+        constructors_reader = csv.DictReader(constructors_file)
+        for line in constructors_reader:
+            constructors_list[line['constructorId']]=line["name"]
     with open('data/races.csv','r', encoding="utf8") as races_file:
         races_reader = csv.DictReader(races_file)
         for line in races_reader:
             race_list[line['raceId']]=line['year'] + " " + line["name"]
-    with open('data/qualifying.csv', 'r') as qualifying_file:
+    with open('data/qualifying.csv', 'r', encoding="utf8") as qualifying_file:
         qualifying_reader = csv.DictReader(qualifying_file)
         for line in qualifying_reader:
             # if line["raceId"] >= x:
-                print(race_list[line['raceId']],driver_list[line['driverId']],line['q1'])
+                qualifying_list.append((race_list[line['raceId']],constructors_list[line["constructorId"]],driver_list[line['driverId']],line['q1']))
 
-
-
+parse_qualifying_times()
+# x = input("Enter: ")
+# for line in qualifying_list:
+#     yearly = qualifying_list[0]
+#     print(yearly)
+#     yearly = yearly[0]
+#     print(yearly)
+#     year = yearly.split()[:4]
+#     print(year)
+#     if year == x:
+#         print(line)
