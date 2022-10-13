@@ -4,15 +4,21 @@
 #https://documenter.getpostman.com/view/11586746/SztEa7bL#46c7fbee-e90f-409f-b2ff-d8b77e85e5f6
 #https://ergast.com/mrd/
 
+from copyreg import constructor
 import tkinter as tk
 # import csv
 import pandas as pd
+from pandasgui import show
+drivers_db = pd.read_csv('data/drivers.csv')
+qualifying_db = pd.read_csv('data/qualifying.csv')
+races_db = pd.read_csv('data/races.csv')
+constructors_db = pd.read_csv('data/races.csv')
 
-drivers = pd.read_csv('data/drivers.csv')
-qualifying = pd.read_csv('data/qualifying.csv')
+merged = pd.merge(qualifying_db,drivers_db, on="driverId",how='left')
+# merged = pd.merge(constructors_db, merged, how='left')
+gui = show(merged)
 
-merge= pd.concat(drivers, qualifying)
-print(merge)
+
 
 # root= tk.Tk()
 # canvas1 = tk.Canvas(root, width = 400, height = 300)
@@ -20,7 +26,6 @@ print(merge)
 
 # year = tk.Entry (root) 
 # canvas1.create_window(200, 140, window=year)
-
 
 # button1 = tk.Button(text='Start F1 Performance Analysis', command=parse_qualifying_times)
 # canvas1.create_window(200, 180, window=button1)
