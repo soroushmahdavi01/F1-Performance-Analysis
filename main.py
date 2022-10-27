@@ -4,21 +4,30 @@
 #https://documenter.getpostman.com/view/11586746/SztEa7bL#46c7fbee-e90f-409f-b2ff-d8b77e85e5f6
 #https://ergast.com/mrd/
 
-from copyreg import constructor
+
+import requests
 import tkinter as tk
-# import csv
 import pandas as pd
 from pandasgui import show
-drivers_db = pd.read_csv('data/drivers.csv')
-qualifying_db = pd.read_csv('data/qualifying.csv')
-races_db = pd.read_csv('data/races.csv')
-constructors_db = pd.read_csv('data/races.csv')
+import json
 
-merged = pd.merge(qualifying_db,drivers_db, on="driverId",how='left')
+while True:
+    year = 2021
+    constructor = "red bull"
+    constructor = '_'.join(constructor.split())
+    url = f"https://ergast.com/api/f1/{year}/constructors/{constructor}/qualifying.json"
+
+    payload={}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    data = json.loads(response.text)
+    for i in data["MRData"]["RaceTable"]["Races"]:
+        print(f'{i["raceName"]} {i["QualifyingResults"][0]["Driver"]["givenName"]} {i["QualifyingResults"][0]["Driver"]["familyName"]} {min(float(i["QualifyingResults"][0]["Q1"]),float(i["QualifyingResults"][0]["Q2"]),float(i["QualifyingResults"][0]["Q3"]))} ')
+    break
+
+
+# merged = pd.merge(qualifying_db,drivers_db, on="driverId",how='left')
 # merged = pd.merge(constructors_db, merged, how='left')
-gui = show(merged)
-
-
 
 # root= tk.Tk()
 # canvas1 = tk.Canvas(root, width = 400, height = 300)
@@ -33,18 +42,6 @@ gui = show(merged)
 # root.mainloop()
 
 
-
-# url = f"http://ergast.com/api/f1/{year}/drivers"
-
-# payload={}
-# headers = {}
-
-# response = requests.request("GET", url, headers=headers, data=payload)
-
-# print(response.text)
-
-
-
 # driver_list = {}
 # race_list = {}
 # constructors_list = {}
@@ -52,21 +49,3 @@ gui = show(merged)
 
 
 
-# def parse_qualifying_times ():
-#     with open('data/drivers.csv','r', encoding="utf8") as drivers_file:
-#         drivers_reader = csv.DictReader(drivers_file)
-#         for line in drivers_reader:
-#             driver_list[line['driverId']]=line['forename'] + " " + line['surname']
-#     with open('data/constructors.csv', 'r', encoding="utf8") as constructors_file:
-#         constructors_reader = csv.DictReader(constructors_file)
-#         for line in constructors_reader:
-#             constructors_list[line['constructorId']]=line["name"]
-#     with open('data/races.csv','r', encoding="utf8") as races_file:
-#         races_reader = csv.DictReader(races_file)
-#         for line in races_reader:
-#             race_list[line['raceId']]=line['year'] + " " + line["name"]
-#     with open('data/qualifying.csv', 'r', encoding="utf8") as qualifying_file:
-#         qualifying_reader = csv.DictReader(qualifying_file)
-#         for line in qualifying_reader:
-#             # if line["raceId"] >= x:
-#                 qualifying_list.append((race_list[line['raceId']],constructors_list[line["constructorId"]],driver_list[line['driverId']],line['q1']))
