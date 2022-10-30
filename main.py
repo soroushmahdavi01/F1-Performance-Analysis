@@ -8,22 +8,19 @@
 import requests
 import tkinter as tk
 import pandas as pd
-from pandasgui import show
 import json
 
 while True:
-    year = 2021
-    constructor = "red bull"
-    constructor = '_'.join(constructor.split())
-    url = f"https://ergast.com/api/f1/{year}/constructors/{constructor}/qualifying.json"
-
+    team_a_year = 2021
+    team_a_constructor = "red bull"
+    team_a_constructor = '_'.join(team_a_constructor.split())
+    url = f"https://ergast.com/api/f1/{team_a_year}/constructors/{team_a_constructor}/qualifying.json"
     payload={}
     headers = {}
     response = requests.request("GET", url, headers=headers, data=payload)
     data = json.loads(response.text)
-    for i in data["MRData"]["RaceTable"]["Races"]:
-        print(f'{i["raceName"]} {i["QualifyingResults"][0]["Driver"]["givenName"]} {i["QualifyingResults"][0]["Driver"]["familyName"]} {min(float(i["QualifyingResults"][0]["Q1"]),float(i["QualifyingResults"][0]["Q2"]),float(i["QualifyingResults"][0]["Q3"]))} ')
-    break
+    df = pd.json_normalize(data["MRData"]["RaceTable"]["Races"])
+    print(df)
 
 
 # merged = pd.merge(qualifying_db,drivers_db, on="driverId",how='left')
