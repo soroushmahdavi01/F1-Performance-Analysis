@@ -10,9 +10,9 @@ import tkinter as tk
 import pandas as pd
 import json
 
-while True:
-    team_a_year = 2021
-    team_a_constructor = "red bull"
+def create_db(year, constructor):
+    team_a_year = year
+    team_a_constructor = constructor
     team_a_constructor = '_'.join(team_a_constructor.split())
     url = f"https://ergast.com/api/f1/{team_a_year}/constructors/{team_a_constructor}/qualifying.json"
     payload={}
@@ -20,7 +20,10 @@ while True:
     response = requests.request("GET", url, headers=headers, data=payload)
     data = json.loads(response.text)
     df = pd.json_normalize(data["MRData"]["RaceTable"]["Races"])
-    print(df)
+    return df
+RedBull_DB_2022 = create_db(2022, "Red Bull")
+print(RedBull_DB_2022.QualifyingResults[0][0]["Q3"])
+print(RedBull_DB_2022.QualifyingResults[0][1]["Q3"])
 
 
 # merged = pd.merge(qualifying_db,drivers_db, on="driverId",how='left')

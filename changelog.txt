@@ -4,15 +4,14 @@ This also saw the first fall of the dominant mercades who destryoed the last 7 y
 
 TODO
 
-I need to be able to read the CSV files
-I need to be able to use the RACEID numbers from races.csv to update the ids to names
-I need to be able to extract all data from teams regardless of drivers
-I need to be able to take that data and caluclate the pace, then COMAPRE to a previous or future year
-2020 saw diffrent races? The calendar is not always the same. 
-I would need a benchmark race, a race that all the teams share in all years, 2-3 would be good. 
+I need to be able to read the CSV files <- No Longer using CSV
+I need to be able to use the RACEID numbers from races.csv (Update: Will now use API to find RACE ID not CSV file) to update the ids to names
+I need to be able to extract all data from teams regardless of drivers <- Done
+I need to be able to take that data and caluclate the pace, then COMAPRE to a previous or future year <- Create a Standard deviation 
+(Take the average race time for that race and compare the teams 2020 and 2021 to both averages, depending on how much faster they are to the rest of the field)
+2020 saw diffrent races? The calendar is not always the same. <- Wont matter we are comparing race by race for the years
+I would need a benchmark race, a race that all the teams share in all years, 2-3 would be good. <- Wont be doing. Will be choisng one race to another
 
-STARTS FROM 2016
-Focus on Teams and performance diffrences betweent 2-3 races
-can change years
-will account for the average pace of BOTH drivers.
-can seperate to indivudal drivers (i.e Lando and Riccardo in 2021 vs 2022) Lando faster then riccard alot of the times :/ (except monza 2021 :D) 
+ChangeLog
+1/24 I figured out how to splice the data, and have aquired the Q3 times of both drivers, now i just need
+to multiply them by 60 and take the smallest number, make functions to do this!
