@@ -10,6 +10,9 @@ import tkinter as tk
 import pandas as pd
 import json
 
+race_time_list = []
+average_time_list = []
+
 def create_db(year, constructor):
     team_a_year = year
     team_a_constructor = constructor
@@ -21,10 +24,31 @@ def create_db(year, constructor):
     data = json.loads(response.text)
     df = pd.json_normalize(data["MRData"]["RaceTable"]["Races"])
     return df
-RedBull_DB_2022 = create_db(2022, "Red Bull")
-print(RedBull_DB_2022.QualifyingResults[0][0]["Q3"])
-print(RedBull_DB_2022.QualifyingResults[0][1]["Q3"])
 
+
+
+def pull_driver_times(team, i):
+    driver1 = team.QualifyingResults[i][0]["Q3"]
+    driver2 = team.QualifyingResults[i][1]["Q3"]
+    race_time_list.append(driver1)
+    race_time_list.append(driver2)
+    return driver1, driver2
+
+def calcualte_average_time(race_time_list):
+    for i in race_time_list:
+        x = i[0]
+        x = int(x) * 60
+        y = float(i[2:8])
+        average_time_list.append(round(x+y,3))
+
+RedBull_DB_2022 = create_db(2022, "Red Bull")
+RedBull_Driver_1, RedBull_Driver_2 = pull_driver_times(RedBull_DB_2022, 0)
+calcualte_average_time(race_time_list)        
+
+print(RedBull_DB_2022)
+print(average_time_list)
+
+#df.columns.get_loc("salary")
 
 # merged = pd.merge(qualifying_db,drivers_db, on="driverId",how='left')
 # merged = pd.merge(constructors_db, merged, how='left')
