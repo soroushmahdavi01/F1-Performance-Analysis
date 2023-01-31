@@ -40,14 +40,24 @@ def calcualte_average_time(race_time_list):
         x = int(x) * 60
         y = float(i[2:8])
         average_time_list.append(round(x+y,3))
+    g = 0
+    for i in average_time_list:
+        g+=i  
+    g=g/len(average_time_list)
+    return g
+
 
 RedBull_DB_2022 = create_db(2022, "Red Bull")
 RedBull_Driver_1, RedBull_Driver_2 = pull_driver_times(RedBull_DB_2022, 0)
-calcualte_average_time(race_time_list)        
+
+mercedes_db_2022 = create_db(2022, "mercedes")
+mercedes_driver_1, mercedes_driver_2 = pull_driver_times(mercedes_db_2022, 0)
+
+averg = calcualte_average_time(race_time_list)        
 
 print(RedBull_DB_2022)
 print(average_time_list)
-
+print(round(averg, 4))
 #df.columns.get_loc("salary")
 
 # merged = pd.merge(qualifying_db,drivers_db, on="driverId",how='left')
