@@ -12,6 +12,11 @@ I need to be able to take that data and caluclate the pace, then COMAPRE to a pr
 2020 saw diffrent races? The calendar is not always the same. <- Wont matter we are comparing race by race for the years
 I would need a benchmark race, a race that all the teams share in all years, 2-3 would be good. <- Wont be doing. Will be choisng one race to another
 
+I need to convert the lists to a dictiorny, to updated them as well when they get converted to seconds
+Add a way to convert them back to minutes
+Find a way to do all the teams for each year? 
+
 ChangeLog
 1/24 I figured out how to splice the data, and have aquired the Q3 times of both drivers, now i just need
 to multiply them by 60 and take the smallest number, make functions to do this!
+1/31 Added alot of new functions

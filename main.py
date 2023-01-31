@@ -32,6 +32,7 @@ def pull_driver_times(team, i):
     driver2 = team.QualifyingResults[i][1]["Q3"]
     race_time_list.append(driver1)
     race_time_list.append(driver2)
+    #Make this a dictonary?
     return driver1, driver2
 
 def calcualte_average_time(race_time_list):
@@ -54,6 +55,8 @@ mercedes_db_2022 = create_db(2022, "mercedes")
 mercedes_driver_1, mercedes_driver_2 = pull_driver_times(mercedes_db_2022, 0)
 
 averg = calcualte_average_time(race_time_list)        
+
+# print(RedBull_Driver_1/averg)
 
 print(RedBull_DB_2022)
 print(average_time_list)
