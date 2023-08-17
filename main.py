@@ -30,6 +30,15 @@ def create_db(year, constructor):
     df = pd.json_normalize(data["MRData"]["RaceTable"]["Races"])
     return df
 
+def create_constructor_year_list(year):
+    team_year = year
+    url = f"https://ergast.com/api/f1/{team_year}/constructors.json"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    data = json.loads(response.text)
+    df = pd.json_normalize(data["MRData"]["RaceTable"]["Races"])
+    return df
 
 def pull_driver_times(team, i):
     driver1_list = []
@@ -93,20 +102,26 @@ def pull_driver_times(team, i):
 
 def driver_fastest_lap(driver1_list, driver2_list):
     driver1_list_seconds = []
-    for i in driver1_list:
-        x = i[0]
-        x = int(x) * 60
-        y = float(i[2:8])
-        driver1_list_seconds.append(round(x+y, 3))
+    try:
+        for i in driver1_list:
+            x = i[0]
+            x = int(x) * 60
+            y = float(i[2:8])
+            driver1_list_seconds.append(round(x+y, 3))
+    
+    except IndexError:
+        pass
     driver2_list_seconds = []
-    for i in driver2_list:
-        x = i[0]
-        x = int(x) * 60
-        y = float(i[2:8])
-        driver2_list_seconds.append(round(x+y, 3))
-    return(min(driver1_list_seconds),min(driver2_list_seconds))
+    try:    
+        for i in driver2_list:
+            x = i[0]
+            x = int(x) * 60
+            y = float(i[2:8])
+            driver2_list_seconds.append(round(x+y, 3))
+        return(min(driver1_list_seconds),min(driver2_list_seconds))
+    except IndexError:
+         pass
    
-
 def calcualte_average_time(race_time_list):
     for i in race_time_list:
         x = i[0]
@@ -136,16 +151,15 @@ def year_fastest_times(db):
 
 
 
+# RB_DB_2021 = create_db(2021, "Red Bull")
+# print(RB_DB_2021)
+# print(year_fastest_times(RB_DB_2021))
+Hass_DB_2021 = create_db(2021, "Haas")
+print(year_fastest_times(Hass_DB_2021))
 Hass_DB_2022 = create_db(2022, "Haas")
 print(year_fastest_times(Hass_DB_2022))
 mclaren2022 = create_db(2022, "Mclaren")
 print(year_fastest_times(mclaren2022))
-
-# print(Hass_DB_2022)
-# print(Hass_Driver_1_2022)
-# print(Hass_Driver_2_2022)
-
-# print(min(driver_fastest_lap(Hass_Driver_1_2022,Hass_Driver_2_2022)))
 
 
 
